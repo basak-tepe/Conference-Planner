@@ -3,7 +3,7 @@ package com.conferences.schedule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication (scanBasePackages = "com.conferences.schedule")
 public class ScheduleApplication {
 
 	public static void main(String[] args) {
