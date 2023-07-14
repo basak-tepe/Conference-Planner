@@ -10,5 +10,6 @@ public interface EventService {
     public Event getEventById(long id);
     public List<Event> getEvents();
     public void deleteEvent(long id);
+    public Event updateEvent(Event event);
 
 }
