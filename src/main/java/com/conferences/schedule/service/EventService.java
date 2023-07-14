@@ -1,15 +1,13 @@
 package com.conferences.schedule.service;
-import com.conferences.schedule.model.Event
-import org.springframework.stereotype.Service;
+import com.conferences.schedule.model.Event;
 
 import java.util.List;
 
-@Service
 public interface EventService {
-    public Event addEvent(Event event);
-    public Event getEventById(long id);
-    public List<Event> getEvents();
-    public void deleteEvent(long id);
-    public Event updateEvent(Event event);
+    Event addEvent(Event event);
+    Event getEventById(long id);
+    List<Event> getEvents();
+    void deleteEvent(long id);
+    Event updateEvent(Event event);
 
 }

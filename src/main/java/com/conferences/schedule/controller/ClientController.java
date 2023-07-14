@@ -10,8 +10,12 @@ import java.util.List;
 @RestController
 public class ClientController {
     //service
+    private final EventService eventService;
+
     @Autowired
-    private EventService eventService;
+    public ClientController(EventService eventService) {
+        this.eventService = eventService;
+    }
 
     @RequestMapping("/")
     public String hello_world(){
@@ -43,11 +47,10 @@ public class ClientController {
     }
 
     //delete an event
-
     @DeleteMapping("/event/{id}")
     public String deleteEvent(@PathVariable("id") long id){
         eventService.deleteEvent(id);
-        return "Event deleted succesfully.";
+        return "Event deleted successfully.";
     }
 }
 
