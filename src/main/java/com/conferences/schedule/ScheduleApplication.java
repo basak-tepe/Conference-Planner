@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 @EnableMongoRepositories
+@EnableCaching
 public class ScheduleApplication {
 
     public static void main(String[] args) {
