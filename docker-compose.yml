@@ -1,0 +1,15 @@
+version: "3.9"
+
+x-common-variables: &common-variables
+  DATABASE_CONNECTION_STRING: mongodb://testUsername:testPassword@database:27017
+
+services:
+  mongo:
+    image: mongo
+    container_name: database
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: mydatabase
+      MONGO_INITDB_ROOT_USERNAME: testUsername
+      MONGO_INITDB_ROOT_PASSWORD: testPassword
