@@ -1,15 +1,22 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-import
+import Calendar from 'primevue/calendar';
+import InputText from 'primevue/inputtext';
+import 'primevue/resources/themes/lara-light-purple/theme.css'; // import the dark-blue theme
+
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <div class="inputs">
+        <p class="font-size:20">Create an event</p>
+        <Calendar v-model="date" showIcon />
+      <InputText v-model="value2" type="text" placeholder="Title" />
+      <InputText v-model="value2" type="text" placeholder="Description"/>
+      <InputText v-model="value2" type="text" placeholder="Presenter" />
+      </div>
     </div>
   </header>
 
@@ -43,6 +50,17 @@ header {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
+  }
+
+  p {
+    font-size: 200%;
+  }
+
+  .inputs{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+    gap: 25px;
   }
 }
 </style>
