@@ -4,6 +4,12 @@ import com.conferences.schedule.model.Event;
 import com.conferences.schedule.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+//import com.conferences.schedule.basicauth.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,6 +25,18 @@ public class ClientController {
     public ClientController(EventService eventService) {
         this.eventService = eventService;
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login() {
+        // You can perform authentication here based on the provided credentials.
+        // For example, you can compare the credentials with the ones in your database.
+        // If authentication is successful, return a success response with a status code 200
+        return ResponseEntity.ok("Login successful!");
+
+        // If authentication fails, return a failure response with a status code 401 (Unauthorized)
+        // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed!");
+    }
+
 
     @RequestMapping("/hello")
     public String hello_world(){
