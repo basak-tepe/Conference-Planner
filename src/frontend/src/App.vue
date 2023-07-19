@@ -1,13 +1,33 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
 import TheWelcome from './components/TheWelcome.vue'
 import Calendar from 'primevue/calendar';
 import InputText from 'primevue/inputtext';
-import 'primevue/resources/themes/lara-light-purple/theme.css'; // import the dark-blue theme
+import 'primevue/resources/themes/lara-light-purple/theme.css' // import the dark-blue theme
 
+export default {
+  name:"App",
+  components:{
+    TheWelcome,
+    Calendar,
+    InputText
+  },
+  data() {
+    return {
+      msg: ''
+    }
+  },
+  mounted() {
+    fetch("/api/events/hello")
+        .then((response) => response.text())
+        .then((data) => {
+          this.msg = data;
+        });
+  }
+}
 </script>
 
 <template>
+  <!--h1 class="green">{{ msg }}</h1-->
   <header>
     <div class="wrapper">
       <div class="inputs">
@@ -21,7 +41,7 @@ import 'primevue/resources/themes/lara-light-purple/theme.css'; // import the da
   </header>
 
   <main>
-    <TheWelcome />
+    <TheWelcome/>
   </main>
 </template>
 

@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping ("/api/events")
+@CrossOrigin(origins = "http://localhost:5173") // frontend URL
+
 public class ClientController {
     //service
     private final EventService eventService;
@@ -17,7 +20,7 @@ public class ClientController {
         this.eventService = eventService;
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/hello")
     public String hello_world(){
         return "Hello World";
     }
