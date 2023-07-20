@@ -38,7 +38,7 @@ public class ClientController {
     }
 
 
-    @RequestMapping("/hello")
+    @GetMapping ("/hello")
     public String hello_world(){
         return "Hello World";
     }
