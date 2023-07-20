@@ -3,26 +3,70 @@ import TheWelcome from './components/TheWelcome.vue'
 import Calendar from 'primevue/calendar';
 import InputText from 'primevue/inputtext';
 import 'primevue/resources/themes/lara-light-purple/theme.css' // import the dark-blue theme
+import Button from 'primevue/button';
+import 'primeicons/primeicons.css';
 
 export default {
   name:"App",
   components:{
     TheWelcome,
     Calendar,
-    InputText
+    InputText,
+    Button
   },
   data() {
     return {
-      msg: ''
+      msg: '',
+      date: null,       // To store the selected date from the Calendar
+      title: '',        // To store the title from the InputText
+      description: '',  // To store the description from the InputText
+      presenter: ''
     }
   },
-  mounted() {
-    fetch("/api/events/hello")
-        .then((response) => response.text())
-        .then((data) => {
-          this.msg = data;
-        });
+
+  methods:{
+    handleSubmit() {
+      // Prepare the data to be sent to the backend
+      const eventData = {
+        date: this.date,
+        title: this.title,
+        description: this.description,
+        presenter: this.presenter
+      };
+
+      // Replace '/api/events' with the appropriate backend API endpoint
+      fetch("/api/events/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(eventData)
+      })
+          .then((response) => {
+            if (response.ok) {
+              // Handle success, e.g., show a success message
+              console.log("Event data submitted successfully!");
+              // Reset the form inputs
+              this.date = null;
+              this.title = '';
+              this.description = '';
+              this.presenter = '';
+            } else {
+              // Handle errors, e.g., show an error message
+              console.error("Error submitting event data.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error submitting event data:", error);
+          });
+    }
   }
+  // mounted() {
+  //   fetch("/api/events/hello")
+  //       .then((response) => response.text())
+  //       .then((data) => {
+  //         this.msg = data;
+  //       });
 }
 </script>
 
@@ -30,14 +74,18 @@ export default {
   <!--h1 class="green">{{ msg }}</h1-->
   <header>
     <div class="wrapper">
+      <form @submit.prevent="handleSubmit">
       <div class="inputs">
         <p class="font-size:20">Create an event</p>
         <Calendar v-model="date" showIcon />
-      <InputText v-model="value2" type="text" placeholder="Title" />
-      <InputText v-model="value2" type="text" placeholder="Description"/>
-      <InputText v-model="value2" type="text" placeholder="Presenter" />
+        <InputText v-model="title" type="text" placeholder="Title" />
+        <InputText v-model="description" type="text" placeholder="Description"/>
+        <InputText v-model="presenter" type="text" placeholder="Presenter" />
+        <Button label="Submit" type="submit" icon="pi pi-check" iconPos="right" />
       </div>
+      </form>
     </div>
+
   </header>
 
   <main>
