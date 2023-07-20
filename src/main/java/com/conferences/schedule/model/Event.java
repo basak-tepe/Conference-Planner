@@ -3,29 +3,30 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
 
 
-@Entity
-@Table(name = "event_table")
+@Document(collection = "events")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Event {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
     private String description;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
     // Constructors, getters, and setters
-
-    public Event() {
-        // Default constructor
-    }
 
     public Event(String title, String description, LocalDateTime startTime, LocalDateTime endTime) {
         this.title = title;

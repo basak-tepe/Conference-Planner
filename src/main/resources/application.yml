@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://basaktepe:oJIyWboA7hYvFXM2@tasks.jr3eued.mongodb.net/?retryWrites=true&w=majority
+      database: Events

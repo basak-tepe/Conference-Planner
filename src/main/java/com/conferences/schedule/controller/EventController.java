@@ -17,12 +17,20 @@ import java.util.List;
 @RequestMapping ("/api/events")
 @CrossOrigin(origins = "http://localhost:5173") // frontend URL
 
-public class ClientController {
+
+
+//create - POST MAPPING
+//update - PUT MAPPING
+//read - GET MAPPING
+//delete -DELETE MAPPING
+
+
+public class EventController {
     //service
-    private final EventService eventService;
+    private EventService eventService;
 
     @Autowired
-    public ClientController(EventService eventService) {
+    public EventController(EventService eventService) {
         this.eventService = eventService;
     }
 
@@ -45,21 +53,24 @@ public class ClientController {
 
     //add event
     @PostMapping("/add")
+    @ResponseStatus(HttpStatus.CREATED)
     public String addEvent(@RequestBody Event event){
     eventService.addEvent(event);
     return "Event added successfully!";
     }
 
-    //getEventById
-    @RequestMapping("/event/{id}")
-    public Event getEventById(@PathVariable("id") int id){
-        return eventService.getEventById(id);
-    }
-    //getEvents
     @RequestMapping("/events")
     public List<Event> getEvents(){
         return eventService.getEvents();
     }
+
+
+    //getEventById
+    @RequestMapping("/event/{id}")
+    public Event getEventById(@PathVariable int id){
+        return eventService.getEventById(id);
+    }
+    //getEvents
 
     //update event
     @PutMapping("/event")
@@ -69,7 +80,7 @@ public class ClientController {
 
     //delete an event
     @DeleteMapping("/event/{id}")
-    public String deleteEvent(@PathVariable("id") long id){
+    public String deleteEvent(@PathVariable long id){
         eventService.deleteEvent(id);
         return "Event deleted successfully.";
     }

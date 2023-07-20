@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
+
+//create,read,update, delete operations
 @Service
 public class EventServiceImpl implements EventService {
     //repository
@@ -19,6 +22,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event addEvent(Event event) {
+        //event.setId(Long.valueOf(UUID.randomUUID().toString().split("-")[0]));
         return eventRepository.save(event);
     }
 
@@ -35,11 +39,16 @@ public class EventServiceImpl implements EventService {
     @Override
     public void deleteEvent(long id) {
         eventRepository.deleteById(id);
-
     }
 
     @Override
     public Event updateEvent(Event event) {
-        return eventRepository.save(event);
+        Event existingEvent = eventRepository.findById(event.getId()).get();
+        existingEvent.setId(event.getId());
+        existingEvent.setDescription(event.getDescription());
+        existingEvent.setTitle(event.getTitle());
+        existingEvent.setEndTime(event.getEndTime());
+        existingEvent.setStartTime(event.getStartTime());
+        return eventRepository.save(existingEvent);
     }
 }
