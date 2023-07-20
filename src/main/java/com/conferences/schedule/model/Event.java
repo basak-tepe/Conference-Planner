@@ -1,14 +1,11 @@
 package com.conferences.schedule.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
-
 import java.time.LocalDateTime;
 
 

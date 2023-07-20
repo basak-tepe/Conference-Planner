@@ -28,14 +28,17 @@ export default {
     handleSubmit() {
       // Prepare the data to be sent to the backend
       const eventData = {
+        id:1000,
         date: this.date,
         title: this.title,
         description: this.description,
-        presenter: this.presenter
+        //presenter: this.presenter
+        startTime: "2023-07-20T14:30:00",
+        endTime: "2023-07-20T16:00:00"
       };
 
       // Replace '/api/events' with the appropriate backend API endpoint
-      fetch("/api/events/add", {
+      fetch("http://localhost:8080/api/events/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
