@@ -24,18 +24,18 @@ public class Event {
     private String date;
     private String time;
     private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private String displayTime;
 
     // Constructors, getters, and setters
 
-    public Event(String title, String description, String presenter, String date, String time, LocalDateTime startTime, LocalDateTime endTime) {
+    public Event(String title, String description, String presenter, String date, String time, LocalDateTime startTime, String displayTime) {
         this.title = title;
         this.description = description;
         this.presenter = presenter;
         this.date = date;
         this.time = time;
         this.startTime = startTime;
-        this.endTime = endTime;
+        this.displayTime = displayTime;
     }
 
 
@@ -73,12 +73,12 @@ public class Event {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public String getDisplayTime() {
+        return displayTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public void setDisplayTime(String displayTime) {
+        this.displayTime = displayTime;
     }
 
     public String getDate() {

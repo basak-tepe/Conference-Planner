@@ -46,7 +46,7 @@ public class EventServiceImpl implements EventService {
         existingEvent.setId(event.getId());
         existingEvent.setDescription(event.getDescription());
         existingEvent.setTitle(event.getTitle());
-        existingEvent.setEndTime(event.getEndTime());
+        existingEvent.setDisplayTime(event.getDisplayTime());
         existingEvent.setPresenter(event.getPresenter());
         existingEvent.setDate(event.getDate());
         existingEvent.setTime(event.getTime());

@@ -43,7 +43,9 @@ export default {
       date: null,       // To store the selected date from the Calendar
       title: '',        // To store the title from the InputText
       description: '',  // To store the description from the InputText
-      presenter: ''
+      presenter: '',
+      startTime: null,
+      displayTime: '',
     }
   },
 
@@ -67,6 +69,37 @@ export default {
     handleSubmit() {
 
 
+      //creating the startTime object
+      // Parse the date and time strings to JavaScript Date objects
+      const dateObject = new Date(this.date);
+      const timeObject = new Date(this.time);
+
+      // Extract the date components
+      const year = dateObject.getFullYear();
+      const month = dateObject.getMonth(); //+1?
+      const day = dateObject.getDate();
+
+      // Extract the time components
+      const hours = timeObject.getHours();
+      const minutes = timeObject.getMinutes();
+      const seconds = timeObject.getSeconds();
+
+      // Create a new Date object with the extracted date and time components
+      const startTimeObject = new Date(year, month - 1, day, hours, minutes, seconds);
+
+      // Convert the startTimeObject to ISO string format
+
+      console.log(startTimeObject.toISOString()); // Output: "2023-07-02T11:07:19.000Z"
+
+
+
+      //human readable format
+      //Format the date and time components into "dd.mm.yyyy hh:mm" format
+      this.displayTime = `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+      console.log(this.displayTime); // Output: "20.07.2023 14:30"
+
+
       // Prepare the data to be sent to the backend
       const eventData = {
         id:getRandomInt(1, 100),
@@ -75,8 +108,8 @@ export default {
         title: this.title,
         description: this.description,
         presenter: this.presenter,
-        startTime: "2023-07-20T14:30:00",
-        endTime: "2023-07-20T16:00:00"
+        startTime: startTimeObject.toISOString(),
+        displayTime: this.displayTime,
       };
 
       // Replace '/api/events' with the appropriate backend API endpoint
@@ -97,6 +130,7 @@ export default {
               this.title = '';
               this.description = '';
               this.presenter = '';
+              this.displayTime ='';
               this.fetchAllEvents();
             } else {
               // Handle errors, e.g., show an error message
@@ -169,6 +203,7 @@ export default {
             </template>
             <template #subtitle>
               {{slotProps.item.presenter}}
+              {{slotProps.item.displayTime}}
             </template>
             <template #content>
               <!--img v-if="slotProps.item.image" :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.item.image}`" :alt="slotProps.item.name" width="200" class="shadow-1" /-->
