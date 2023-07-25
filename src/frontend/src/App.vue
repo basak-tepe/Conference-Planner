@@ -94,6 +94,7 @@ export default {
               this.title = '';
               this.description = '';
               this.presenter = '';
+              this.fetchAllEvents();
             } else {
               // Handle errors, e.g., show an error message
               console.error("Error submitting event data.");
@@ -102,7 +103,7 @@ export default {
           .catch((error) => {
             console.error("Error submitting event data:", error);
           });
-      this.fetchAllEvents();
+
     },
     fetchAllEvents() {
       // Replace '/api/events' with the appropriate backend API endpoint
