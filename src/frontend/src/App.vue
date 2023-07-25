@@ -34,13 +34,9 @@ export default {
   },
   data() {
     return {
-      events: [
-        { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
-        { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
-        { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
-        { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
-      ],
+      events: [],
       msg: '',
+      time:null,
       date: null,       // To store the selected date from the Calendar
       title: '',        // To store the title from the InputText
       description: '',  // To store the description from the InputText
@@ -70,6 +66,7 @@ export default {
       const eventData = {
         id:getRandomInt(1, 100),
         date: this.date,
+        time: this.time,
         title: this.title,
         description: this.description,
         //presenter: this.presenter
@@ -91,6 +88,7 @@ export default {
               console.log("Event data submitted successfully!");
               // Reset the form inputs
               this.date = null;
+              this.time = null;
               this.title = '';
               this.description = '';
               this.presenter = '';
@@ -137,7 +135,8 @@ export default {
       <form @submit.prevent="handleSubmit">
         <div class="inputs">
           <p class="font-size:20">Create an event</p>
-          <Calendar v-model="date" showIcon />
+          <Calendar v-model="date" placeholder="Date"  showIcon />
+          <Calendar id="calendar-timeonly" placeholder="Time" v-model="time" timeOnly />
           <InputText v-model="title" type="text" placeholder="Title" />
           <InputText v-model="description" type="text" placeholder="Description"/>
           <InputText v-model="presenter" type="text" placeholder="Presenter" />
@@ -170,7 +169,7 @@ export default {
               ></Button>
             </template>
             <template #subtitle>
-<!--              {{ slotProps.item.description}}-->
+              {{ slotProps.item.date}}
             </template>
             <template #content>
               <!--img v-if="slotProps.item.image" :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.item.image}`" :alt="slotProps.item.name" width="200" class="shadow-1" /-->
