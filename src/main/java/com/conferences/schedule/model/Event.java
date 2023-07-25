@@ -20,17 +20,24 @@ public class Event {
     private Long id;
     private String title;
     private String description;
+    private String presenter;
+    private String date;
+    private String time;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
     // Constructors, getters, and setters
 
-    public Event(String title, String description, LocalDateTime startTime, LocalDateTime endTime) {
+    public Event(String title, String description, String presenter, String date, String time, LocalDateTime startTime, LocalDateTime endTime) {
         this.title = title;
         this.description = description;
+        this.presenter = presenter;
+        this.date = date;
+        this.time = time;
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
 
     // Getters and setters
 
@@ -72,5 +79,29 @@ public class Event {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getPresenter() {
+        return presenter;
+    }
+
+    public void setPresenter(String presenter) {
+        this.presenter = presenter;
     }
 }

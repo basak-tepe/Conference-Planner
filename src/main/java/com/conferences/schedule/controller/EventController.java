@@ -18,13 +18,6 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173") // frontend URL
 
 
-
-//create - POST MAPPING
-//update - PUT MAPPING
-//read - GET MAPPING
-//delete -DELETE MAPPING
-
-
 public class EventController {
     //service
     private EventService eventService;

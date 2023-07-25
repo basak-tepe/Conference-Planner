@@ -12,7 +12,10 @@ import 'primeicons/primeicons.css';
 import "/node_modules/primeflex/primeflex.css"
 //import Toast from 'primevue/toast';
 
-//write toasts
+/**
+ * add toasts
+ * fix object properties and their display
+ */
 
 
 //to create event ids
@@ -62,6 +65,8 @@ export default {
       }
     },
     handleSubmit() {
+
+
       // Prepare the data to be sent to the backend
       const eventData = {
         id:getRandomInt(1, 100),
@@ -69,7 +74,7 @@ export default {
         time: this.time,
         title: this.title,
         description: this.description,
-        //presenter: this.presenter
+        presenter: this.presenter,
         startTime: "2023-07-20T14:30:00",
         endTime: "2023-07-20T16:00:00"
       };
@@ -119,12 +124,6 @@ export default {
   mounted() {
     this.fetchAllEvents();
   }
-  // mounted() {
-  //   fetch("/api/events/hello")
-  //       .then((response) => response.text())
-  //       .then((data) => {
-  //         this.msg = data;
-  //       });
 }
 </script>
 
@@ -147,10 +146,10 @@ export default {
 
   </header>
   <main>
-<!--    <div class="card flex justify-content-center">-->
-<!--      <Toast />-->
-<!--      <Button label="Show" @click="show()" />-->
-<!--    </div>-->
+    <!--    <div class="card flex justify-content-center">-->
+    <!--      <Toast />-->
+    <!--      <Button label="Show" @click="show()" />-->
+    <!--    </div>-->
     <div class="card">
       <Timeline :value="events"  layout= "vertical" align="alternate" class="customized-timeline">
         <template #marker="slotProps">
@@ -169,7 +168,7 @@ export default {
               ></Button>
             </template>
             <template #subtitle>
-              {{ slotProps.item.date}}
+              {{slotProps.item.presenter}}
             </template>
             <template #content>
               <!--img v-if="slotProps.item.image" :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.item.image}`" :alt="slotProps.item.name" width="200" class="shadow-1" /-->
