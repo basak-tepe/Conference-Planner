@@ -17,6 +17,14 @@ import 'primeicons/primeicons.css';
  * now try back-to-front (get)
  * after that use primevue/timeline
  */
+
+//to create event ids
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export default {
   name:"App",
   components:{
@@ -47,7 +55,7 @@ export default {
     handleSubmit() {
       // Prepare the data to be sent to the backend
       const eventData = {
-        id:1000,
+        id:getRandomInt(1, 100),
         date: this.date,
         title: this.title,
         description: this.description,
@@ -81,7 +89,23 @@ export default {
           .catch((error) => {
             console.error("Error submitting event data:", error);
           });
+      this.fetchAllEvents();
+    },
+    fetchAllEvents() {
+      // Replace '/api/events' with the appropriate backend API endpoint
+      fetch("http://localhost:8080/api/events/events")
+          .then((response) => response.json())
+          .then((data) => {
+            this.events = data; // Update the events data with the fetched data
+          })
+          .catch((error) => {
+            console.error("Error fetching event data:", error);
+          });
     }
+  },
+
+  mounted() {
+    this.fetchAllEvents();
   }
   // mounted() {
   //   fetch("/api/events/hello")
@@ -94,17 +118,17 @@ export default {
 
 <template>
   <!--h1 class="green">{{ msg }}</h1-->
-      <header>
+  <header>
     <div class="wrapper">
       <form @submit.prevent="handleSubmit">
-      <div class="inputs">
-        <p class="font-size:20">Create an event</p>
-        <Calendar v-model="date" showIcon />
-        <InputText v-model="title" type="text" placeholder="Title" />
-        <InputText v-model="description" type="text" placeholder="Description"/>
-        <InputText v-model="presenter" type="text" placeholder="Presenter" />
-        <Button label="Submit" type="submit" icon="pi pi-check" iconPos="right" />
-      </div>
+        <div class="inputs">
+          <p class="font-size:20">Create an event</p>
+          <Calendar v-model="date" showIcon />
+          <InputText v-model="title" type="text" placeholder="Title" />
+          <InputText v-model="description" type="text" placeholder="Description"/>
+          <InputText v-model="presenter" type="text" placeholder="Presenter" />
+          <Button label="Submit" type="submit" icon="pi pi-check" iconPos="right" />
+        </div>
       </form>
     </div>
 
@@ -114,22 +138,21 @@ export default {
       <Timeline :value="events" align="alternate" class="customized-timeline">
         <template #marker="slotProps">
               <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" :style="{ backgroundColor: slotProps.item.color }">
-                  <i :class="slotProps.item.icon"></i>
+<!-- THIS IS THE ICON <i :class="slotProps.item.icon"></i>-->
               </span>
         </template>
         <template #content="slotProps">
           <Card class="custom-card-width">
             <template #title>
-              {{ slotProps.item.status }}
+              {{ slotProps.item.title}}
             </template>
             <template #subtitle>
-              {{ slotProps.item.date }}
+<!--              {{ slotProps.item.description}}-->
             </template>
             <template #content>
               <!--img v-if="slotProps.item.image" :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.item.image}`" :alt="slotProps.item.name" width="200" class="shadow-1" /-->
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
-                neque quas!
+                {{ slotProps.item.description}}
               </p>
               <Button label="Read more" text></Button>
             </template>
@@ -168,7 +191,7 @@ header {
   }
 
   p {
-    //font-size: 200%;
+  //font-size: 200%;
   }
 
   .inputs{
