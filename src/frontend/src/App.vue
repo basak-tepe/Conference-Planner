@@ -52,6 +52,22 @@ export default {
   },
 
   methods:{
+    async deleteEvent(eventId) {
+      try {
+        const response = await fetch(`http://localhost:8080/api/events/event/${eventId}`, {
+          method: "DELETE",
+        });
+        if (response.ok) {
+          // Event deleted successfully on the server, now update the frontend
+          this.events = this.events.filter((event) => event.id !== eventId);
+          console.log(`Event with ID ${eventId} deleted successfully.`);
+        } else {
+          console.error(`Error deleting event with ID ${eventId}.`);
+        }
+      } catch (error) {
+        console.error("Error deleting event:", error);
+      }
+    },
     handleSubmit() {
       // Prepare the data to be sent to the backend
       const eventData = {
@@ -145,6 +161,11 @@ export default {
           <Card class="custom-card-width">
             <template #title>
               {{ slotProps.item.title}}
+              <Button
+                  icon="pi pi-times"
+                  class="p-button-rounded p-button-sm"
+                  @click="deleteEvent(slotProps.item.id)"
+              ></Button>
             </template>
             <template #subtitle>
 <!--              {{ slotProps.item.description}}-->
