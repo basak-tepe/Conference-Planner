@@ -9,14 +9,11 @@ import 'primeicons/primeicons.css';
 import Timeline from 'primevue/timeline';
 import  Card  from 'primevue/card';
 import 'primeicons/primeicons.css';
+import "/node_modules/primeflex/primeflex.css"
+//import Toast from 'primevue/toast';
 
-/**
- * next week:
- * fetch all event data as text and view it in front-end
- * front-to-back is done (post)
- * now try back-to-front (get)
- * after that use primevue/timeline
- */
+//write toasts
+
 
 //to create event ids
 function getRandomInt(min, max) {
@@ -117,7 +114,7 @@ export default {
           .catch((error) => {
             console.error("Error fetching event data:", error);
           });
-    }
+    },
   },
 
   mounted() {
@@ -150,8 +147,12 @@ export default {
 
   </header>
   <main>
+<!--    <div class="card flex justify-content-center">-->
+<!--      <Toast />-->
+<!--      <Button label="Show" @click="show()" />-->
+<!--    </div>-->
     <div class="card">
-      <Timeline :value="events" align="alternate" class="customized-timeline">
+      <Timeline :value="events"  layout= "vertical" align="alternate" class="customized-timeline">
         <template #marker="slotProps">
               <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" :style="{ backgroundColor: slotProps.item.color }">
 <!-- THIS IS THE ICON <i :class="slotProps.item.icon"></i>-->
@@ -184,25 +185,51 @@ export default {
   </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style lang="scss" scoped>
+
+/*small screens*/
+@media (max-width: 1024px) {
+  header {
+    line-height: 1.5;
+  }
+  .inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .inputs * {
+    flex: 1 1 100%;
+  }
+
+  main {
+    margin: 80px;
+  }
+
+  ::v-deep(.customized-timeline) {
+    .p-timeline-event:nth-child(even) {
+      flex-direction: row !important;
+
+      .p-timeline-event-content {
+        text-align: left !important;
+      }
+    }
+
+    .p-timeline-event-opposite {
+      flex: 0;
+    }
+
+    .p-card {
+      margin-top: 1rem;
+    }
+  }
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
+/**large screens*/
 @media (min-width: 1024px) {
   header {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
   }
 
   header .wrapper {
@@ -211,21 +238,26 @@ header {
     flex-wrap: wrap;
   }
 
-  p {
-  //font-size: 200%;
-  }
-
-  .inputs{
+  .inputs {
     display: flex;
     flex-direction: column;
     padding-bottom: 30px;
     gap: 25px;
+    margin:10px;
   }
 
-  .customized-timeline{
-    margin: 60px;
-  }
+  ::v-deep(.customized-timeline) {
+    .p-timeline-event:nth-child(even) {
+      width:600px;
+      height:210px;
 
+      .p-timeline-event-content {
+
+      }
+    }
+
+  }
 
 }
+
 </style>
