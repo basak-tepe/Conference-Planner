@@ -14,11 +14,9 @@ import "/node_modules/primeflex/primeflex.css"
 
 /**
  * add toasts
- * fix object properties and their display
  */
 
-
-//to create event ids
+//creating random event ID's
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -26,7 +24,9 @@ function getRandomInt(min, max) {
 }
 
 export default {
+
   name:"App",
+
   components:{
     TheWelcome,
     Calendar,
@@ -35,17 +35,18 @@ export default {
     Card,
     Timeline
   },
+
+
   data() {
     return {
       events: [],
-      msg: '',
       time:null,
-      date: null,       // To store the selected date from the Calendar
-      title: '',        // To store the title from the InputText
-      description: '',  // To store the description from the InputText
+      date: null,
+      title: '',
+      description: '',
       presenter: '',
       startTime: null,
-      displayTime: '',
+      displayedDateTime: '',
     }
   },
 
@@ -67,9 +68,6 @@ export default {
       }
     },
     handleSubmit() {
-
-
-      //creating the startTime object
       // Parse the date and time strings to JavaScript Date objects
       const dateObject = new Date(this.date);
       const timeObject = new Date(this.time);
@@ -93,11 +91,11 @@ export default {
 
 
 
-      //human readable format
+      //human readable format for displaying
       //Format the date and time components into "dd.mm.yyyy hh:mm" format
-      this.displayTime = `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      this.displayedDateTime = `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 
-      console.log(this.displayTime); // Output: "20.07.2023 14:30"
+      console.log(this.displayedDateTime); // Output: "20.07.2023 14:30"
 
 
       // Prepare the data to be sent to the backend
@@ -109,10 +107,10 @@ export default {
         description: this.description,
         presenter: this.presenter,
         startTime: startTimeObject.toISOString(),
-        displayTime: this.displayTime,
+        displayTime: this.displayedDateTime,
       };
 
-      // Replace '/api/events' with the appropriate backend API endpoint
+
       fetch("http://localhost:8080/api/events/add", {
         method: "POST",
         headers: {
@@ -122,7 +120,7 @@ export default {
       })
           .then((response) => {
             if (response.ok) {
-              // Handle success, e.g., show a success message
+
               console.log("Event data submitted successfully!");
               // Reset the form inputs
               this.date = null;
@@ -130,10 +128,9 @@ export default {
               this.title = '';
               this.description = '';
               this.presenter = '';
-              this.displayTime ='';
+              this.displayedDateTime ='';
               this.fetchAllEvents();
             } else {
-              // Handle errors, e.g., show an error message
               console.error("Error submitting event data.");
             }
           })
@@ -143,7 +140,6 @@ export default {
 
     },
     fetchAllEvents() {
-      // Replace '/api/events' with the appropriate backend API endpoint
       fetch("http://localhost:8080/api/events/events")
           .then((response) => response.json())
           .then((data) => {
@@ -162,7 +158,6 @@ export default {
 </script>
 
 <template>
-  <!--h1 class="green">{{ msg }}</h1-->
   <header>
     <div class="wrapper">
       <form @submit.prevent="handleSubmit">
@@ -188,7 +183,6 @@ export default {
       <Timeline :value="events"  layout= "vertical" align="alternate" class="customized-timeline">
         <template #marker="slotProps">
               <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" :style="{ backgroundColor: slotProps.item.color }">
-<!-- THIS IS THE ICON <i :class="slotProps.item.icon"></i>-->
               </span>
         </template>
         <template #content="slotProps">
@@ -202,11 +196,10 @@ export default {
               ></Button>
             </template>
             <template #subtitle>
-              {{slotProps.item.presenter}}
+              {{slotProps.item.presenter}},
               {{slotProps.item.displayTime}}
             </template>
             <template #content>
-              <!--img v-if="slotProps.item.image" :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.item.image}`" :alt="slotProps.item.name" width="200" class="shadow-1" /-->
               <p>
                 {{ slotProps.item.description}}
               </p>
