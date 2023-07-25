@@ -14,6 +14,7 @@ import "/node_modules/primeflex/primeflex.css"
 
 /**
  * add toasts
+ * divide this file into components
  */
 
 //creating random event ID's
@@ -162,7 +163,7 @@ export default {
     <div class="wrapper">
       <form @submit.prevent="handleSubmit">
         <div class="inputs">
-          <p class="font-size:20">Create an event</p>
+          <p class="create-an-event-text">Create an event</p>
           <Calendar v-model="date" placeholder="Date"  showIcon />
           <Calendar id="calendar-timeonly" placeholder="Time" v-model="time" timeOnly />
           <InputText v-model="title" type="text" placeholder="Title" />
@@ -191,7 +192,8 @@ export default {
               {{ slotProps.item.title}}
               <Button
                   icon="pi pi-times"
-                  class="p-button-rounded p-button-sm"
+                  class="p-button-rounded p-button-xs"
+                  text rounded
                   @click="deleteEvent(slotProps.item.id)"
               ></Button>
             </template>
@@ -214,8 +216,24 @@ export default {
 
 <style lang="scss" scoped>
 
+
+/*text*/
+  .create-an-event-text{
+    font-size: 30px;
+    color: #6140af;
+    letter-spacing: -0.8px;
+    word-spacing: 6px;
+    font-weight: 600;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+  }
+
+
 /*small screens*/
 @media (max-width: 1024px) {
+
   header {
     line-height: 1.5;
   }
@@ -253,6 +271,8 @@ export default {
 
 /**large screens*/
 @media (min-width: 1024px) {
+
+
   header {
     display: flex;
     place-items: center;
