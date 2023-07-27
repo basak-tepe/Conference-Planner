@@ -11,6 +11,11 @@ import Timetable from "@/components/Timetable.vue";
 /**
  * add toasts - optional
  * authentication bearer
+ * adding files
+ * updating events
+ * if some is logged in, they should be able to add events
+ * if not they should only see the existing ones and be able to download presentation files
+ * google bard or bing chat for uploading files
  */
 
 export default {
@@ -19,6 +24,15 @@ export default {
   components:{
     EventForm,
     Timetable
+  },
+  methods:{
+    triggerChildMethod(){
+      // Access the child component instance using the ref
+      const childComponentInstance = this.$refs.childComponentRef;
+
+      // Call the method in the child component
+      childComponentInstance.fetchAllEvents();
+    }
   }
 }
 </script>
@@ -26,12 +40,12 @@ export default {
 <template>
   <header>
     <div class="wrapper">
-      <event-form></event-form>
+      <event-form @someEvent="triggerChildMethod"></event-form>
     </div>
   </header>
 
   <main>
-  <Timetable></Timetable>
+    <Timetable ref="childComponentRef"></Timetable>
   </main>
 </template>
 
@@ -39,17 +53,17 @@ export default {
 
 
 /*text*/
-  .create-an-event-text{
-    font-size: 30px;
-    color: #6140af;
-    letter-spacing: -0.8px;
-    word-spacing: 6px;
-    font-weight: 600;
-    text-decoration: none solid rgb(68, 68, 68);
-    font-style: normal;
-    font-variant: normal;
-    text-transform: none;
-  }
+.create-an-event-text{
+  font-size: 30px;
+  color: #6140af;
+  letter-spacing: -0.8px;
+  word-spacing: 6px;
+  font-weight: 600;
+  text-decoration: none solid rgb(68, 68, 68);
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+}
 
 
 /*small screens*/

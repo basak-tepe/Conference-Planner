@@ -16,7 +16,7 @@ import SupportIcon from './icons/IconSupport.vue'
       <InputText v-model="title" type="text" placeholder="Title" />
       <InputText v-model="description" type="text" placeholder="Description"/>
       <InputText v-model="presenter" type="text" placeholder="Presenter" />
-      <Button label="Submit" type="submit" icon="pi pi-check" iconPos="right" />
+      <Button label="Submit" type="submit" icon="pi pi-check" iconPos="right"/>
     </div>
   </form>
 </template>
@@ -63,6 +63,8 @@ export default {
 
   methods:{
     handleSubmit() {
+      //send signal to parent
+      this.$emit('someEvent');
       // Parse the date and time strings to JavaScript Date objects
       const dateObject = new Date(this.date);
       const timeObject = new Date(this.time);

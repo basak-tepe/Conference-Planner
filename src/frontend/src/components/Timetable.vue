@@ -7,6 +7,7 @@ import  Card  from 'primevue/card';
 import Button from "primevue/button";
 import 'primeicons/primeicons.css';
 import "/node_modules/primeflex/primeflex.css"
+import * as events from "events";
 
 export default {
 
@@ -17,6 +18,9 @@ export default {
     Timeline,
     Button
   },
+
+  //listening to signals from the parent
+  props: ['refreshTable'],
 
 
   data() {
@@ -53,6 +57,12 @@ export default {
           });
     },
   },
+
+  watch(){
+    events:{
+      this.fetchAllEvents();
+    }
+  },
   mounted() {
     this.fetchAllEvents();
   }
@@ -60,37 +70,37 @@ export default {
 </script>
 
 <template>
-    <div class="card">
-      <Timeline :value="events.reverse()"  layout= "vertical" align="alternate" class="customized-timeline">
-        <template #marker="slotProps">
+  <div class="card">
+    <Timeline :value="events.reverse()"  layout= "vertical" align="alternate" class="customized-timeline">
+      <template #marker="slotProps">
               <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" :style="{ backgroundColor: slotProps.item.color }">
               </span>
-        </template>
-        <template #content="slotProps">
-          <Card class="custom-card-width">
-            <template #title>
-              {{ slotProps.item.title}}
-              <Button
-                  icon="pi pi-times"
-                  class="p-button-rounded p-button-xs"
-                  text rounded
-                  @click="deleteEvent(slotProps.item.id)"
-              ></Button>
-            </template>
-            <template #subtitle>
-              {{slotProps.item.presenter}},
-              {{slotProps.item.displayTime}}
-            </template>
-            <template #content>
-              <p>
-                {{ slotProps.item.description}}
-              </p>
-              <Button label="Read more" text></Button>
-            </template>
-          </Card>
-        </template>
-      </Timeline>
-    </div>
+      </template>
+      <template #content="slotProps">
+        <Card class="custom-card-width">
+          <template #title>
+            {{ slotProps.item.title}}
+            <Button
+                icon="pi pi-times"
+                class="p-button-rounded p-button-xs"
+                text rounded
+                @click="deleteEvent(slotProps.item.id)"
+            ></Button>
+          </template>
+          <template #subtitle>
+            {{slotProps.item.presenter}},
+            {{slotProps.item.displayTime}}
+          </template>
+          <template #content>
+            <p>
+              {{ slotProps.item.description}}
+            </p>
+            <Button label="Read more" text></Button>
+          </template>
+        </Card>
+      </template>
+    </Timeline>
+  </div>
 </template>
 
 <style lang="scss" scoped>
