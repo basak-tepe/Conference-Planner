@@ -2,10 +2,10 @@
 import { ref } from "vue";
 import 'primevue/resources/themes/lara-light-purple/theme.css' // import the dark-blue theme
 import 'primeicons/primeicons.css';
-import 'primeicons/primeicons.css';
 import "/node_modules/primeflex/primeflex.css"
 import EventForm from "@/components/EventForm.vue";
 import Timetable from "@/components/Timetable.vue";
+import Login from "@/components/Login.vue";
 //import Toast from 'primevue/toast';
 
 /**
@@ -13,17 +13,23 @@ import Timetable from "@/components/Timetable.vue";
  * authentication bearer
  * adding files
  * updating events
- * if some is logged in, they should be able to add events
- * if not they should only see the existing ones and be able to download presentation files
  * google bard or bing chat for uploading files
  */
 
 export default {
 
   name:"App",
+
   components:{
     EventForm,
-    Timetable
+    Timetable,
+    Login
+  },
+
+  data(){
+    return {
+      isLoggedIn: false,
+    }
   },
   methods:{
     triggerChildMethod(){
@@ -32,6 +38,9 @@ export default {
 
       // Call the method in the child component
       childComponentInstance.fetchAllEvents();
+    },
+    logIn(){
+      this.isLoggedIn = true;
     }
   }
 }
@@ -40,17 +49,28 @@ export default {
 <template>
   <header>
     <div class="wrapper">
-      <event-form @someEvent="triggerChildMethod"></event-form>
+      <Login v-if="!isLoggedIn" @login="logIn" ></Login>
+      <event-form v-if="isLoggedIn" @someEvent="triggerChildMethod"></event-form>
+
     </div>
   </header>
 
   <main>
-    <Timetable ref="childComponentRef"></Timetable>
+    <Timetable :isLoggedInProp="isLoggedIn" ref="childComponentRef"></Timetable>
   </main>
 </template>
 
 <style lang="scss" scoped>
 
+.fade-in-enter-active,
+.fade-out-leave-active {
+  transition: opacity 1.0s ease;
+}
+
+.fade-in-enter-from,
+.fade-out-leave-to {
+  opacity: 0;
+}
 
 /*text*/
 .create-an-event-text{

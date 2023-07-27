@@ -20,7 +20,12 @@ export default {
   },
 
   //listening to signals from the parent
-  props: ['refreshTable'],
+  props: {
+    isLoggedInProp: {
+      type: Boolean,
+      required: true,
+    },
+  },
 
 
   data() {
@@ -80,7 +85,7 @@ export default {
         <Card class="custom-card-width">
           <template #title>
             {{ slotProps.item.title}}
-            <Button
+            <Button v-if="isLoggedInProp"
                 icon="pi pi-times"
                 class="p-button-rounded p-button-xs"
                 text rounded
