@@ -6,13 +6,13 @@ import "/node_modules/primeflex/primeflex.css"
 import EventForm from "@/components/EventForm.vue";
 import Timetable from "@/components/Timetable.vue";
 import Login from "@/components/Login.vue";
-//import Toast from 'primevue/toast';
 
 /**
- * add toasts - optional
  * authentication bearer
  * adding files
  * updating events
+ * log in feature
+ * a public backend page of events
  * google bard or bing chat for uploading files
  */
 
@@ -35,8 +35,8 @@ export default {
     triggerChildMethod(){
       // Access the child component instance using the ref
       const childComponentInstance = this.$refs.childComponentRef;
-
       // Call the method in the child component
+      console.log("child method triggered");
       childComponentInstance.fetchAllEvents();
     },
     logIn(){

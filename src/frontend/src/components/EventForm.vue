@@ -62,9 +62,8 @@ export default {
   },
 
   methods:{
-    handleSubmit() {
-      //send signal to parent
-      this.$emit('someEvent');
+    async handleSubmit() {
+
       // Parse the date and time strings to JavaScript Date objects
       const dateObject = new Date(this.date);
       const timeObject = new Date(this.time);
@@ -108,7 +107,7 @@ export default {
       };
 
 
-      fetch("http://localhost:8080/api/events/add", {
+      await fetch("http://localhost:8080/api/events/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -126,8 +125,11 @@ export default {
               this.description = '';
               this.presenter = '';
               this.displayedDateTime ='';
-              this.fetchAllEvents();
-            } else {
+              //send signal to parent
+              this.$emit('someEvent');
+            }
+
+            else {
               console.error("Error submitting event data.");
             }
           })
