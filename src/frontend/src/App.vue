@@ -13,8 +13,9 @@ import "/node_modules/primeflex/primeflex.css"
 //import Toast from 'primevue/toast';
 
 /**
- * add toasts
+ * add toasts - optional
  * divide this file into components
+ * authentication bearer
  */
 
 //creating random event ID's
@@ -181,7 +182,7 @@ export default {
     <!--      <Button label="Show" @click="show()" />-->
     <!--    </div>-->
     <div class="card">
-      <Timeline :value="events"  layout= "vertical" align="alternate" class="customized-timeline">
+      <Timeline :value="events.reverse()"  layout= "vertical" align="alternate" class="customized-timeline">
         <template #marker="slotProps">
               <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" :style="{ backgroundColor: slotProps.item.color }">
               </span>
