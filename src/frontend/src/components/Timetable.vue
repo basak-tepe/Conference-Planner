@@ -7,14 +7,6 @@ import  Card  from 'primevue/card';
 import Button from "primevue/button";
 import 'primeicons/primeicons.css';
 import "/node_modules/primeflex/primeflex.css"
-//import Toast from 'primevue/toast';
-
-/**
- * add toasts - optional
- * authentication bearer
- */
-
-//creating random event ID's
 
 export default {
 
@@ -68,10 +60,6 @@ export default {
 </script>
 
 <template>
-    <!--    <div class="card flex justify-content-center">-->
-    <!--      <Toast />-->
-    <!--      <Button label="Show" @click="show()" />-->
-    <!--    </div>-->
     <div class="card">
       <Timeline :value="events.reverse()"  layout= "vertical" align="alternate" class="customized-timeline">
         <template #marker="slotProps">

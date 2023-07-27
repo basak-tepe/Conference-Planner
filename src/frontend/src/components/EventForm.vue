@@ -29,12 +29,7 @@ import Button from 'primevue/button';
 import 'primeicons/primeicons.css';
 import Calendar from 'primevue/calendar';
 import "/node_modules/primeflex/primeflex.css"
-//import Toast from 'primevue/toast';
 
-/**
- * add toasts - optional
- * authentication bearer
- */
 
 //creating random event ID's
 function getRandomInt(min, max) {
@@ -140,10 +135,6 @@ export default {
 
     },
   },
-  //
-  // mounted() {
-  //   this.fetchAllEvents();
-  // }
 }
 </script>
 
