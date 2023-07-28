@@ -48,6 +48,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/events/events").permitAll()
                         .requestMatchers("/api/events/add").authenticated()
                         .anyRequest().permitAll());
+        http.formLogin();
+        http.httpBasic();
 
         return http.build();
     }
