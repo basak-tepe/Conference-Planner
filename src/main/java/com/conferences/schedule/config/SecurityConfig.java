@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+
 
 @Configuration
 @EnableWebSecurity
@@ -37,20 +39,18 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(admin,user);
     }
 
-//    //AUTHORIZATION
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        //everyone can access the event list
-//        http
-//                .authorizeHttpRequests((authorize) -> authorize
-//                        .requestMatchers("/api/events/events").permitAll()
-//                        .requestMatchers("/api/events/add").authenticated()
-//                );
-//
-//        return http.build();
-//
-//
-//    }
+ //AUTHORIZATION
+
+    @Bean
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/api/events/events").permitAll()
+                        .requestMatchers("/api/events/add").authenticated()
+                        .anyRequest().permitAll());
+
+        return http.build();
+    }
 
     //password encoding
     @Bean
