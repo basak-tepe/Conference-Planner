@@ -87,7 +87,7 @@ export default {
 
 
 
-      //human readable format for displaying
+      //human-readable format for displaying
       //Format the date and time components into "dd.mm.yyyy hh:mm" format
       this.displayedDateTime = `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 
