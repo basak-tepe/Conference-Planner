@@ -1,10 +1,11 @@
 package com.conferences.schedule.config;
 
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,12 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfig {
 
     //AUTHENTICATION
@@ -36,27 +35,28 @@ public class SecurityConfig {
                 .roles("USER")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin,user);
+        return new InMemoryUserDetailsManager(admin, user);
     }
 
- //AUTHORIZATION
+    //AUTHORIZATION
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((requests) -> requests
+                .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/events/events").permitAll()
-                        .requestMatchers("/api/events/add").authenticated()
-                        .anyRequest().permitAll());
-        http.formLogin();
-        http.httpBasic();
+                        .requestMatchers("/api/events/login").permitAll()
+                        .anyRequest().authenticated());
+        http.formLogin(AbstractHttpConfigurer::disable);
+        http.httpBasic(Customizer.withDefaults());
+        http.cors(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
 
     //password encoding
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
