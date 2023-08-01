@@ -106,16 +106,25 @@ export default {
         displayTime: this.displayedDateTime,
       };
 
+
       //obtain username & password from local storage
       const store = useLocalStorageStore();
       const username = store.getUsername();
       const password = store.getPassword();
+
+
       console.log(username);
+      console.log(password);
+
+      const credentials = `${username}:${password}`;
+      const encodedCredentials = btoa(credentials);
 
       await fetch("http://localhost:8080/api/events/add", {
+        mode: 'no-cors',
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          Authorization: `Basic ${encodedCredentials}`,
         },
         body: JSON.stringify(eventData)
       })
