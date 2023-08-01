@@ -4,6 +4,7 @@ import 'primevue/resources/themes/lara-light-purple/theme.css' // import the dar
 import Button from 'primevue/button';
 import 'primeicons/primeicons.css';
 import "/node_modules/primeflex/primeflex.css"
+import { useLocalStorageStore } from '../storage'
 
 export default {
   data() {
@@ -30,6 +31,7 @@ export default {
       // // Handle login success and redirect to a protected route
       // //this.$router.push({ name: 'dashboard' }); // Replace 'dashboard' with your protected route name
 
+
       // Make an API call to the backend to login
       const {username, password} = this;
       const url = "http://localhost:8080/api/events/login";
@@ -47,6 +49,12 @@ export default {
             if (response.status === 200) {
               // The login was successful, redirect to the next page
               this.$emit('login');
+
+              //store the data
+              const store = useLocalStorageStore()
+              store.setUsername(username);
+              store.setPassword(password);
+
             } else {
               // The login failed, show an alert
               alert("Credentials are wrong!");
