@@ -5,13 +5,25 @@ import com.conferences.schedule.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/events")
-@CrossOrigin(origins = "http://localhost:5173") // frontend URL
+
+@CrossOrigin(
+        origins = {
+                "http://localhost:5173"
+        },
+        methods = {
+        RequestMethod.OPTIONS,
+        RequestMethod.GET,
+        RequestMethod.PUT,
+        RequestMethod.DELETE,
+        RequestMethod.POST}) // frontend URL
 public class EventController {
     //service
     private final EventService eventService;
@@ -40,6 +52,7 @@ public class EventController {
     //add event
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String addEvent(@RequestBody Event event) {
         eventService.addEvent(event);
         return "Event added successfully!";
