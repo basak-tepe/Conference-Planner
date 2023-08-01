@@ -1,24 +1,26 @@
-// store/index.js
-import { createStore } from 'vuex';
+import { defineStore } from 'pinia'
 
-const store = createStore({
-    state: {
+export const useLocalStorageStore = defineStore('localStorage', {
+    state: () => ({
         username: '',
         password: '',
-    },
-    mutations: {
-        setUsername(state, username) {
-            state.username = username;
+    }),
+    actions: {
+        setUsername(username) {
+            this.username = username
+            localStorage.setItem('username', username)
         },
-        setPassword(state, password) {
-            state.password = password;
+        setPassword(password) {
+            this.password = password
+            localStorage.setItem('password', password)
+        },
+        getUsername() {
+            this.username = localStorage.getItem('username')
+            return this.username
+        },
+        getPassword() {
+            this.password = localStorage.getItem('password')
+            return this.password
         },
     },
-    actions: {},
-    getters: {
-        getUsername: state => state.username,
-        getPassword: state => state.password,
-    },
-});
-
-export default store;
+})
