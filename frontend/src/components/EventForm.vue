@@ -1,12 +1,3 @@
-<script setup>
-import WelcomeItem from './Timetable.vue'
-import DocumentationIcon from './icons/IconDocumentation.vue'
-import ToolingIcon from './icons/IconTooling.vue'
-import EcosystemIcon from './icons/IconEcosystem.vue'
-import CommunityIcon from './icons/IconCommunity.vue'
-import SupportIcon from './icons/IconSupport.vue'
-</script>
-
 <template>
   <form @submit.prevent="handleSubmit">
     <div class="inputs">
@@ -120,7 +111,7 @@ export default {
       const encodedCredentials = btoa(credentials);
 
       await fetch("http://localhost:8080/api/events/add", {
-        mode: 'no-cors',
+        //mode: 'no-cors',
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -144,11 +135,11 @@ export default {
             }
 
             else {
-              console.error("Error submitting event data.");
+              console.error("Error submitting event data 1.");
             }
           })
           .catch((error) => {
-            console.error("Error submitting event data:", error);
+            console.error("Error submitting event data2 :", error);
           });
 
     },
