@@ -29,7 +29,7 @@ import Button from 'primevue/button';
 import 'primeicons/primeicons.css';
 import Calendar from 'primevue/calendar';
 import "/node_modules/primeflex/primeflex.css"
-
+import { useLocalStorageStore } from '../storage'
 
 //creating random event ID's
 function getRandomInt(min, max) {
@@ -106,6 +106,11 @@ export default {
         displayTime: this.displayedDateTime,
       };
 
+      //obtain username & password from local storage
+      const store = useLocalStorageStore();
+      const username = store.getUsername();
+      const password = store.getPassword();
+      console.log(username);
 
       await fetch("http://localhost:8080/api/events/add", {
         method: "POST",
