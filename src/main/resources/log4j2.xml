@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+    <Properties>
+        <Property name="LOG_EXCEPTION_CONVERSION_WORD">%throwable</Property>
+        <Property name="LOG_LEVEL_PATTERN">%5p</Property>
+        <!-- ! Do not wrap log pattern into multiple lines ! -->
+        <Property name="CONSOLE_LOG_PATTERN">%clr{%d{${ISO8601}}}{faint} %clr{${sys:LOG_LEVEL_PATTERN}} %clr{%pid}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.1.1.4}}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <Logger name="org" level="ERROR" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="de.hubergroup" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+    </Loggers>
+</Configuration>

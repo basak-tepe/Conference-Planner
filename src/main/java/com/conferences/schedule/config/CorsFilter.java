@@ -3,6 +3,7 @@ package com.conferences.schedule.config;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import java.io.IOException;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@Log4j2
 public class CorsFilter implements Filter {
 
     @Override
@@ -24,16 +26,15 @@ public class CorsFilter implements Filter {
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
-        System.out.println("Request Method: " + request.getMethod());
+        log.debug("Request Method: " + request.getMethod());
         if (!(request.getMethod().equalsIgnoreCase("OPTIONS"))) {
             try {
                 chain.doFilter(req, res);
             } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("An error occurred! Exception: " + e);
+                log.error("An error occurred!", e);
             }
         } else {
-            System.out.println("Pre-flight");
+            log.debug("Pre-flight");
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT");
             response.setHeader("Access-Control-Max-Age", "3600");
