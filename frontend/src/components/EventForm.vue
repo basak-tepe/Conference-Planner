@@ -69,7 +69,7 @@ export default {
 
       // Extract the date components
       const year = dateObject.getFullYear();
-      const month = dateObject.getMonth(); //+1?
+      const month = dateObject.getMonth();
       const day = dateObject.getDate();
 
       // Extract the time components
@@ -78,7 +78,7 @@ export default {
       const seconds = timeObject.getSeconds();
 
       // Create a new Date object with the extracted date and time components
-      const startTimeObject = new Date(year, month - 1, day, hours, minutes, seconds);
+      const startTimeObject = new Date(year, month, day, hours, minutes, seconds);
 
       // Convert the startTimeObject to ISO string format
 
@@ -88,7 +88,7 @@ export default {
 
       //human-readable format for displaying
       //Format the date and time components into "dd.mm.yyyy hh:mm" format
-      this.displayedDateTime = `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      this.displayedDateTime = `${day.toString().padStart(2, '0')}.${(month+1).toString().padStart(2, '0')}.${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 
       console.log(this.displayedDateTime); // Output: "20.07.2023 14:30"
 
