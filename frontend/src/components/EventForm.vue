@@ -7,7 +7,7 @@
       <InputText v-model="title" type="text" placeholder="Title" />
       <InputText v-model="description" type="text" placeholder="Description"/>
       <InputText v-model="presenter" type="text" placeholder="Presenter" />
-      <Button label="Submit" type="submit" icon="pi pi-check" iconPos="right"/>
+      <Button label="Submit" type="submit" icon="pi pi-check" iconPos="right" :disabled="!title"/>
     </div>
   </form>
 </template>
