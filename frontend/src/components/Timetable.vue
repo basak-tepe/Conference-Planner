@@ -78,7 +78,7 @@ export default {
   <div class="card">
     <Timeline :value="events.reverse()"  layout= "vertical" align="alternate" class="customized-timeline">
       <template #marker="slotProps">
-              <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" :style="{ backgroundColor: slotProps.item.color }">
+              <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle bg-indigo-100 z-1 shadow-1">
               </span>
       </template>
       <template #content="slotProps">
