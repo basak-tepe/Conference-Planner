@@ -38,10 +38,9 @@ public class EventController {
 
     //add event
     @PostMapping("/add")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addEvent(@RequestBody Event event) {
+    public ResponseEntity<String> addEvent(@RequestBody Event event) {
         eventService.addEvent(event);
-        return "Event added successfully!";
+        return ResponseEntity.status(HttpStatus.CREATED).body("Event added successfully!");
     }
 
     @GetMapping("/events")
@@ -65,9 +64,9 @@ public class EventController {
 
     //delete an event
     @DeleteMapping("/event/{id}")
-    public String deleteEvent(@PathVariable long id) {
+    public ResponseEntity<String> deleteEvent(@PathVariable long id) {
         eventService.deleteEvent(id);
-        return "Event deleted successfully.";
+        return ResponseEntity.status(HttpStatus.OK).body("Event deleted successfully.");
     }
 }
 
