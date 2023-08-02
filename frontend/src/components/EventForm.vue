@@ -7,7 +7,13 @@
       <InputText v-model="title" type="text" placeholder="Title" />
       <InputText v-model="description" type="text" placeholder="Description"/>
       <InputText v-model="presenter" type="text" placeholder="Presenter" />
+      <FileUpload name="demo[]" url="./upload.php" @upload="onAdvancedUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000">
+        <template #empty>
+          <p>Drag and drop files to here to upload.</p>
+        </template>
+      </FileUpload>
       <Button label="Submit" type="submit" icon="pi pi-check" iconPos="right" :disabled="!title"/>
+
     </div>
   </form>
 </template>
@@ -20,6 +26,7 @@ import Button from 'primevue/button';
 import 'primeicons/primeicons.css';
 import Calendar from 'primevue/calendar';
 import "/node_modules/primeflex/primeflex.css"
+import FileUpload from 'primevue/fileupload';
 import { useLocalStorageStore } from '../storage'
 
 //creating random event ID's
@@ -37,6 +44,7 @@ export default {
     Calendar,
     InputText,
     Button,
+    FileUpload
   },
 
 
