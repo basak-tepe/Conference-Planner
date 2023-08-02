@@ -8,6 +8,7 @@ import Button from "primevue/button";
 import 'primeicons/primeicons.css';
 import "/node_modules/primeflex/primeflex.css"
 import * as events from "events";
+import {useLocalStorageStore} from "@/storage";
 
 export default {
 
@@ -36,9 +37,21 @@ export default {
 
   methods:{
     async deleteEvent(eventId) {
+      //fetch pinia
+      const store = useLocalStorageStore();
+      const username = store.getUsername();
+      const password = store.getPassword();
+
+
+
+      const credentials = `${username}:${password}`;
+      const encodedCredentials = btoa(credentials);
       try {
         const response = await fetch(`http://localhost:8080/api/events/event/${eventId}`, {
           method: "DELETE",
+          headers: {
+            Authorization: `Basic ${encodedCredentials}`,
+          }
         });
         if (response.ok) {
           // Event deleted successfully on the server, now update the frontend
