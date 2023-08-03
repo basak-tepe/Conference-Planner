@@ -33,24 +33,4 @@ public class FileServiceImpl implements FileService{
         dbObject.put("userId","12345");
         gridFsTemplate.store(file.getInputStream(),file.getOriginalFilename(),dbObject);
     }
-
-    public PresentationFile getFileById(long id) {
-        return fileRepository.findById(id).get();
-    }
-
-
-    @Override
-    public List<PresentationFile> getFiles() {
-        return null;
-    }
-
-    @Override
-    public void deleteFile(long id) {
-
-    }
-
-    @Override
-    public PresentationFile updateFile(PresentationFile presentationFile) {
-        return null;
-    }
 }

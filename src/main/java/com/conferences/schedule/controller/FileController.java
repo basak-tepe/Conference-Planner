@@ -25,16 +25,4 @@ public class FileController {
         fileService.addFile(file);
     }
 
-    @GetMapping("/all")
-    public List<PresentationFile> getEvents() {
-        return fileService.getFiles();
-    }
-
-
-    @GetMapping("/file/{id}")
-    public PresentationFile getFileById(@PathVariable int id) {
-        return fileService.getFileById(id);
-    }
-    //getEvents
-
 }

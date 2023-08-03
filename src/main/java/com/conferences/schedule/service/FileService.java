@@ -9,9 +9,4 @@ import java.util.List;
 
 public interface FileService {
     void addFile(MultipartFile file) throws IOException;
-    PresentationFile getFileById(long id);
-    List<PresentationFile> getFiles();
-    void deleteFile(long id);
-    PresentationFile updateFile(PresentationFile presentationFile);
-
 }
