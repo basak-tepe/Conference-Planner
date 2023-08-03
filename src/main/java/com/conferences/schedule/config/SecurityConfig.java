@@ -46,6 +46,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/events/events").permitAll()
                         .requestMatchers("/api/events/login").permitAll()
+                        .requestMatchers("/api/events/files/all").permitAll()
+                        .requestMatchers("/api/events/files/add").permitAll()
                         .anyRequest().authenticated());
         http.formLogin(AbstractHttpConfigurer::disable);
         http.httpBasic(Customizer.withDefaults());
