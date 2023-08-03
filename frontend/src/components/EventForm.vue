@@ -7,11 +7,11 @@
       <InputText v-model="title" type="text" placeholder="Title" />
       <InputText v-model="description" type="text" placeholder="Description"/>
       <InputText v-model="presenter" type="text" placeholder="Presenter" />
-      <FileUpload name="demo[]" url="./upload.php" @upload="onAdvancedUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000">
-        <template #empty>
-          <p>Drag and drop files to here to upload.</p>
-        </template>
-      </FileUpload>
+      <label for="file-upload" class="custom-file-upload">
+        {{ selectedFileName || 'Click to select file' }}
+        <i class="pi pi-arrow-circle-up"></i>
+      </label>
+      <input id="file-upload" class="fileButton" type="file" ref="fileInput" @change="handleFileChange" accept="image/*" multiple />
       <Button label="Submit" type="submit" icon="pi pi-check" iconPos="right" :disabled="!title"/>
 
     </div>
@@ -28,6 +28,7 @@ import Calendar from 'primevue/calendar';
 import "/node_modules/primeflex/primeflex.css"
 import FileUpload from 'primevue/fileupload';
 import { useLocalStorageStore } from '../storage'
+import axios from "axios";
 
 //creating random event ID's
 function getRandomInt(min, max) {
@@ -57,11 +58,65 @@ export default {
       presenter: '',
       startTime: null,
       displayedDateTime: '',
+      selectedFiles: [],
+      selectedFileName: '',
     }
   },
 
   methods:{
+    clearFileInput() {
+      this.$refs.fileInput.value = ''; // Clear the file input value
+      this.selectedFileName = ''; // Reset the selected file name
+    },
+
+    onAdvancedUpload(event) {
+      this.handleFileChange(event);
+    },
+    handleFileChange(event) {
+      this.selectedFiles = event.target.files;
+      // Update the selectedFileName with the name of the first selected file
+      if (this.selectedFiles.length > 0) {
+        this.selectedFileName = this.selectedFiles[0].name;
+      } else {
+        this.selectedFileName = ''; // No file selected, reset the name
+      }
+      // Store the selected files in the selectedFiles data property
+      this.selectedFiles = event.target.files;
+    },
+
     async handleSubmit() {
+
+      // Create a FormData object to store the files and other form data
+      const formData = new FormData();
+
+      // Append the selected files to the FormData object
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        const file = this.selectedFiles[i];
+        formData.append('file', file);
+      }
+
+      // Make a POST request to your backend API to upload the files
+      const url = 'http://localhost:8080/api/events/files/add';
+      axios.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+          .then(response => {
+            // Handle the server response if needed
+            console.log('Files uploaded successfully!');
+          })
+          .catch(error => {
+            // Handle the error if the upload fails
+            console.error('File upload failed:', error);
+          });
+
+
+
+
+      //continue by submitting the event as well
+      //prepare id
+      const randomId = getRandomInt(1, 100);
 
       // Parse the date and time strings to JavaScript Date objects
       const dateObject = new Date(this.date);
@@ -95,7 +150,7 @@ export default {
 
       // Prepare the data to be sent to the backend
       const eventData = {
-        id:getRandomInt(1, 100),
+        id: randomId,
         date: this.date,
         time: this.time,
         title: this.title,
@@ -158,6 +213,30 @@ export default {
 <style lang="scss" scoped>
 
 
+.fileButton {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #b89cf9;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #b89cf9;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center; /* Center the text */
+  font-weight: bold; /* Make the text bold */
+  font-size: 16px; /* Set the font size to 16px*/
+
+  }
 /*text*/
 .create-an-event-text{
   font-size: 30px;
