@@ -8,12 +8,8 @@ import Timetable from "@/components/Timetable.vue";
 import Login from "@/components/Login.vue";
 
 /**
- * authentication bearer
- * adding files
- * updating events
- * log in feature
- * a public backend page of events
- * google bard or bing chat for uploading files
+ * file deletion
+ * bug abt the dropdown
  */
 
 export default {
