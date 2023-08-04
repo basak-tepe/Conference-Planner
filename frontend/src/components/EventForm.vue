@@ -4,6 +4,7 @@
       <p class="create-an-event-text">Create an event</p>
       <Calendar v-model="date" placeholder="Date"  showIcon />
       <Calendar id="calendar-timeonly" placeholder="Time" v-model="time" timeOnly />
+      <Dropdown v-model="selectedLocation" editable :options="locations" optionLabel="name" placeholder="Select a location"/>
       <InputText v-model="title" type="text" placeholder="Title" />
       <InputText v-model="description" type="text" placeholder="Description"/>
       <InputText v-model="presenter" type="text" placeholder="Presenter" />
@@ -27,6 +28,7 @@ import 'primeicons/primeicons.css';
 import Calendar from 'primevue/calendar';
 import "/node_modules/primeflex/primeflex.css"
 import FileUpload from 'primevue/fileupload';
+import Dropdown from "primevue/dropdown";
 import { useLocalStorageStore } from '../storage'
 import axios from "axios";
 
@@ -45,7 +47,8 @@ export default {
     Calendar,
     InputText,
     Button,
-    FileUpload
+    FileUpload,
+    Dropdown
   },
 
 
@@ -60,6 +63,13 @@ export default {
       displayedDateTime: '',
       selectedFiles: [],
       selectedFileName: '',
+      selectedLocation: null,
+      locations: [ // Define the locations list as an array of objects
+        { name: "Online" },
+        { name: "At the office" },
+        { name: "At the conference room" },
+        // Add more locations as needed
+      ]
     }
   },
 
@@ -159,6 +169,7 @@ export default {
         startTime: startTimeObject.toISOString(),
         displayTime: this.displayedDateTime,
         fileName: this.selectedFileName,
+        location : this.selectedLocation,
       };
 
 
@@ -198,6 +209,7 @@ export default {
               this.$emit('someEvent');
               this.selectedFiles = [];
               this.selectedFileName = '';
+              this.selectedLocation = null;
             }
 
             else {
