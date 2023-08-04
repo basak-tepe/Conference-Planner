@@ -196,6 +196,8 @@ export default {
               this.displayedDateTime ='';
               //send signal to parent
               this.$emit('someEvent');
+              this.selectedFiles = [];
+              this.selectedFileName = '';
             }
 
             else {
