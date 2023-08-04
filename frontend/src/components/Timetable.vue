@@ -113,7 +113,10 @@ export default {
             <p>
               {{ slotProps.item.description}}
             </p>
-            <Button label="Read more" text></Button>
+            <div class="download-group">
+              <i class="pi pi-paperclip"></i>
+            <a v-if="slotProps.item.fileName" :href="'http://localhost:8080/api/events/files/download/' + slotProps.item.fileName" download>Download File</a>
+            </div>
           </template>
         </Card>
       </template>
