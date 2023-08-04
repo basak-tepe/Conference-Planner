@@ -26,6 +26,7 @@ public class Event {
     private LocalDateTime startTime;
     private String displayTime;
     private String fileName;
+    private String location;
 
     // Constructors, getters, and setters
 }
