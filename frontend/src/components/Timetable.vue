@@ -88,6 +88,7 @@ export default {
 </script>
 
 <template>
+  <div class="scrollable-container">
   <div class="card">
     <Timeline :value="events.reverse()"  layout= "vertical" align="alternate" class="customized-timeline">
       <template #marker="slotProps">
@@ -108,13 +109,23 @@ export default {
           <template #subtitle>
             {{slotProps.item.presenter}},
             {{slotProps.item.displayTime}}
+            <br>
+            <div class="location-info">
+            <div v-if="slotProps.item.location!=null">
+            <i v-if="slotProps.item.location.toString().trim().startsWith('Online')" class="pi pi-globe"></i>
+            <i v-else-if="slotProps.item.location.toString().trim().startsWith('At the office')" class="pi pi-briefcase"></i>
+            <i v-else-if="slotProps.item.location.toString().trim().startsWith('At the conference room')" class="pi pi-building"></i>
+              <i v-else-if="slotProps.item.location.toString().trim().length === 0" class="pi pi-map-marker"></i>
+            </div>
+              {{ slotProps.item.location}}</div>
           </template>
           <template #content>
             <p>
               {{ slotProps.item.description}}
             </p>
+            <br>
             <div v-if="slotProps.item.fileName" class="download-group">
-              <i class="pi pi-paperclip"></i>
+              <i class="pi pi-link"></i>
             <a  :href="'http://localhost:8080/api/events/files/download/' + slotProps.item.fileName" download>Download File</a>
             </div>
           </template>
@@ -122,17 +133,31 @@ export default {
       </template>
     </Timeline>
   </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
+
+
+.scrollable-container {
+  padding:40px;
+  height: 700px;
+  overflow: auto;
+}
 
 .download-group * {
   color: #8a5bf5;
   display: inline;
   padding:5px;
-
 }
 
+.custom-card-width .p-card .p-card-title{
+  display: flex;
+}
+.location-info *{
+  display: inline;
+  padding:3px;
+}
 /*text*/
 .create-an-event-text{
   font-size: 30px;
@@ -147,10 +172,27 @@ export default {
 }
 
 
+
 /*small screens*/
 @media (max-width: 1024px) {
 
   ::v-deep(.customized-timeline) {
+
+    .p-card .p-card-title{
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+      justify-content: space-between;
+    }
+
+
+    .p-card .p-card-title *{
+      display: flex;
+      flex-wrap:wrap;
+    }
+
     .p-timeline-event:nth-child(even) {
       flex-direction: row !important;
 
@@ -174,8 +216,22 @@ export default {
 
 
   ::v-deep(.customized-timeline) {
+    .p-card .p-card-title{
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .p-card .p-card-title *{
+      display: flex;
+      flex-wrap:wrap;
+    }
     .p-timeline-event:nth-child(even) {
-      width:600px;
+      width:700px;
       height:210px;
 
       .p-timeline-event-content {
