@@ -113,9 +113,9 @@ export default {
             <p>
               {{ slotProps.item.description}}
             </p>
-            <div class="download-group">
+            <div v-if="slotProps.item.fileName" class="download-group">
               <i class="pi pi-paperclip"></i>
-            <a v-if="slotProps.item.fileName" :href="'http://localhost:8080/api/events/files/download/' + slotProps.item.fileName" download>Download File</a>
+            <a  :href="'http://localhost:8080/api/events/files/download/' + slotProps.item.fileName" download>Download File</a>
             </div>
           </template>
         </Card>
@@ -126,6 +126,12 @@ export default {
 
 <style lang="scss" scoped>
 
+.download-group * {
+  color: #8a5bf5;
+  display: inline;
+  padding:5px;
+
+}
 
 /*text*/
 .create-an-event-text{
