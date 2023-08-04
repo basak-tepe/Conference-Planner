@@ -158,6 +158,7 @@ export default {
         presenter: this.presenter,
         startTime: startTimeObject.toISOString(),
         displayTime: this.displayedDateTime,
+        fileName: this.selectedFileName,
       };
 
 
