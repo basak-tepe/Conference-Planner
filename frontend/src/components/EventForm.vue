@@ -5,6 +5,23 @@
       <Calendar v-model="date" placeholder="Date"  showIcon />
       <Calendar id="calendar-timeonly" placeholder="Time" v-model="time" timeOnly />
       <Dropdown showClear v-model="selectedLocation" editable :options="locations" optionLabel="name" optionValue="value" placeholder="Select a location"/>
+
+      <div class="flex flex-wrap gap-3">
+        <div class="flex align-items-center">
+          <RadioButton v-model="selectedEventType" inputId="ingredient1" name="selectedEventType" value="Meeting" />
+          <label for="ingredient1" class="ml-2">Meeting</label>
+        </div>
+        <div class="flex align-items-center">
+          <RadioButton v-model="selectedEventType" inputId="ingredient2" name="selectedEventType" value="Conference" />
+          <label for="ingredient2" class="ml-2">Conference</label>
+        </div>
+        <div class="flex align-items-center">
+          <RadioButton v-model="selectedEventType" inputId="ingredient3" name="selectedEventType" value="Activity" />
+          <label for="ingredient3" class="ml-2">Activity</label>
+        </div>
+      </div>
+
+
       <InputText v-model="title" type="text" placeholder="Title" />
       <InputText v-model="description" type="text" placeholder="Description"/>
       <InputText v-model="presenter" type="text" placeholder="Presenter" />
@@ -28,6 +45,7 @@ import 'primeicons/primeicons.css';
 import Calendar from 'primevue/calendar';
 import "/node_modules/primeflex/primeflex.css"
 import FileUpload from 'primevue/fileupload';
+import RadioButton from 'primevue/radiobutton';
 import Dropdown from "primevue/dropdown";
 import { useLocalStorageStore } from '../storage'
 import axios from "axios";
@@ -48,7 +66,8 @@ export default {
     InputText,
     Button,
     FileUpload,
-    Dropdown
+    Dropdown,
+    RadioButton
   },
 
 
@@ -64,6 +83,7 @@ export default {
       selectedFiles: [],
       selectedFileName: '',
       selectedLocation: null,
+      selectedEventType: null,
 
       locations: [ // Define the locations list as an array of objects
         { name: "Online", value: "Online" },
@@ -171,6 +191,7 @@ export default {
         displayTime: this.displayedDateTime,
         fileName: this.selectedFileName,
         location : this.selectedLocation,
+        eventType: this.selectedEventType,
       };
 
 
