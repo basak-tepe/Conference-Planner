@@ -36,6 +36,19 @@ export default {
   },
 
   methods:{
+
+    getEventCardClass(eventType) {
+      if (eventType === "Conference") {
+        return "event-type-a";
+      } else if (eventType === "Meeting") {
+        return "event-type-b";
+      } else if (eventType === "Activity") {
+        return "event-type-c";
+      } else {
+        return ""; // Default class if no match
+      }
+    },
+
     async deleteEvent(eventId) {
       //fetch pinia
       const store = useLocalStorageStore();
@@ -96,7 +109,7 @@ export default {
               </span>
       </template>
       <template #content="slotProps">
-        <Card class="custom-card-width">
+        <Card :class="getEventCardClass(slotProps.item.eventType)" class="custom-card-width">
           <template #title>
             {{ slotProps.item.title}}
             <Button v-if="isLoggedInProp"
@@ -107,7 +120,9 @@ export default {
             ></Button>
           </template>
           <template #subtitle>
-            {{slotProps.item.presenter}},
+            {{slotProps.item.eventType}}
+            <br>
+            {{slotProps.item.presenter}}
             {{slotProps.item.displayTime}}
             <br>
             <div class="location-info">
@@ -119,7 +134,7 @@ export default {
             </div>
               {{ slotProps.item.location}}</div>
           </template>
-          <template #content>
+          <template #content >
             <p>
               {{ slotProps.item.description}}
             </p>
@@ -137,6 +152,15 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.event-type-a{
+  background-color: rgba(82, 255, 200, 0.07);
+}
+.event-type-b{
+  background-color: rgba(245, 232, 66, 0.07);
+}
+.event-type-c{
+  background-color: rgba(119, 66, 245, 0.07);
+}
 
 
 .scrollable-container {
