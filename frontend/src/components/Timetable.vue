@@ -115,7 +115,7 @@ export default {
             <i v-if="slotProps.item.location.toString().trim().startsWith('Online')" class="pi pi-globe"></i>
             <i v-else-if="slotProps.item.location.toString().trim().startsWith('At the office')" class="pi pi-briefcase"></i>
             <i v-else-if="slotProps.item.location.toString().trim().startsWith('At the conference room')" class="pi pi-building"></i>
-              <i v-else-if="slotProps.item.location.toString().trim().length === 0" class="pi pi-map-marker"></i>
+              <i v-else-if="slotProps.item.location.toString().trim() !== ''" class="pi pi-map-marker"></i>
             </div>
               {{ slotProps.item.location}}</div>
           </template>
