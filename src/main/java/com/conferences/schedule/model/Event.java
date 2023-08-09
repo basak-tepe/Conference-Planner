@@ -27,6 +27,7 @@ public class Event {
     private String displayTime;
     private String fileName;
     private String location;
+    private String eventType; //either conference, meeting, or activity
 
     // Constructors, getters, and setters
 }
