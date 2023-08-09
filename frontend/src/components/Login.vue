@@ -20,17 +20,6 @@ export default {
   },
   methods: {
     login() {
-      // /**
-      //  * temporary log in logic
-      //  */
-      //
-      // this.$emit('login');
-      //
-      // // Perform login logic here
-      // // You can call your API to authenticate the user and obtain the JWT token
-      // // Handle login success and redirect to a protected route
-      // //this.$router.push({ name: 'dashboard' }); // Replace 'dashboard' with your protected route name
-
 
       // Make an API call to the backend to login
       const {username, password} = this;
@@ -71,7 +60,7 @@ export default {
     <div class="inputs">
       <p class="log-in-text">Log in to add an event</p>
       <InputText v-model="username" type="text" placeholder="Username" class="form-control" id="username" required/>
-      <InputText v-model="password" type="password" placeholder="Username" class="form-control" id="password" required/>
+      <InputText v-model="password" type="password" placeholder="Password" class="form-control" id="password" required/>
       <Button label="Log in" type="submit" icon="pi pi-arrow-circle-right" iconPos="right"/>
     </div>
   </form>
