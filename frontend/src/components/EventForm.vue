@@ -4,7 +4,7 @@
       <p class="create-an-event-text">Create an event</p>
       <Calendar v-model="date" placeholder="Date"  showIcon />
       <Calendar id="calendar-timeonly" placeholder="Time" v-model="time" timeOnly />
-      <Dropdown v-model="selectedLocation" editable :options="locations" optionLabel="name" placeholder="Select a location"/>
+      <Dropdown showClear v-model="selectedLocation" editable :options="locations" optionLabel="name" optionValue="value" placeholder="Select a location"/>
       <InputText v-model="title" type="text" placeholder="Title" />
       <InputText v-model="description" type="text" placeholder="Description"/>
       <InputText v-model="presenter" type="text" placeholder="Presenter" />
@@ -64,10 +64,11 @@ export default {
       selectedFiles: [],
       selectedFileName: '',
       selectedLocation: null,
+
       locations: [ // Define the locations list as an array of objects
-        { name: "Online" },
-        { name: "At the office" },
-        { name: "At the conference room" },
+        { name: "Online", value: "Online" },
+        { name: "At the office",value: "At the office"  },
+        { name: "At the conference room",value: "At the conference room"  },
         // Add more locations as needed
       ]
     }
