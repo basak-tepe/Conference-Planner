@@ -48,6 +48,17 @@ export default {
         return ""; // Default class if no match
       }
     },
+    getEventIconClass(eventType) {
+      if (eventType === "Conference") {
+        return "pi pi-comments";
+      } else if (eventType === "Meeting") {
+        return "pi pi-users";
+      } else if (eventType === "Activity") {
+        return "pi pi-th-large";
+      } else {
+        return ""; // Default class if no match
+      }
+    },
 
     async deleteEvent(eventId) {
       //fetch pinia
@@ -105,11 +116,12 @@ export default {
   <div class="card">
     <Timeline :value="events.reverse()"  layout= "vertical" align="alternate" class="customized-timeline">
       <template #marker="slotProps">
-              <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle bg-indigo-100 z-1 shadow-1">
+              <span :class="getEventCardClass(slotProps.item.eventType)"   class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1">
+                <i  :class="getEventIconClass(slotProps.item.eventType)"></i>
               </span>
       </template>
       <template #content="slotProps">
-        <Card :class="getEventCardClass(slotProps.item.eventType)" class="custom-card-width">
+        <Card class="custom-card-width">
           <template #title>
             {{ slotProps.item.title}}
             <Button v-if="isLoggedInProp"
@@ -153,13 +165,13 @@ export default {
 
 <style lang="scss" scoped>
 .event-type-a{
-  background-color: rgba(82, 255, 200, 0.07);
+  background-color: rgba(145, 170, 250);
 }
 .event-type-b{
-  background-color: rgba(245, 232, 66, 0.07);
+  background-color: rgb(174, 246, 86);
 }
 .event-type-c{
-  background-color: rgba(119, 66, 245, 0.07);
+  background-color: rgb(250, 185, 7);
 }
 
 
